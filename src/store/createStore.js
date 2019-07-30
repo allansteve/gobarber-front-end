@@ -8,5 +8,6 @@ export default (reducers, middlewares) => {
           applyMiddleware(...middlewares)
         )
       : applyMiddleware(...middlewares);
+
   return createStore(reducers, enhancer);
 };
