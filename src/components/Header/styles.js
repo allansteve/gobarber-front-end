@@ -20,7 +20,7 @@ export const Content = styled.div`
     img {
       margin-right: 20px;
       padding-right: 20px;
-      border-right: 1px solid #fff;
+      border-right: 1px solid #eee;
     }
 
     a {
@@ -39,7 +39,7 @@ export const Profile = styled.div`
   display: flex;
   margin-left: 20px;
   padding-left: 20px;
-  border-left: 1px solid #fff;
+  border-left: 1px solid #eee;
 
   div {
     text-align: right;
