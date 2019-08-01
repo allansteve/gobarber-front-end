@@ -11,8 +11,9 @@ import {
   parseISO
 } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
-import pt from "date-fns/locale/pt";
+import pt from "date-fns/locale/pt-BR";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+
 import api from "~/services/api";
 
 import { Container, Time } from "./styles";
@@ -30,16 +31,13 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function loadSchedule() {
-      const response = api.get("schedule", {
+      const response = await api.get("schedule", {
         params: { date }
       });
-
-      const timezone = Intl.DateTimeFormat()
-        .resolvedOptions()
-        .timeZone();
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
       const data = range.map(hour => {
-        const checkDate = setSeconds(setMinutes(setHours(date), 0), 0);
+        const checkDate = setSeconds(setMinutes(setHours(date, hour), 0), 0);
         const compareDate = utcToZonedTime(checkDate, timezone);
 
         return {
@@ -50,8 +48,10 @@ export default function Dashboard() {
           )
         };
       });
+
       setSchedule(data);
     }
+
     loadSchedule();
   }, [date]);
 
@@ -67,17 +67,17 @@ export default function Dashboard() {
     <Container>
       <header>
         <button type="button" onClick={handlePrevDay}>
-          <MdChevronLeft size={36} color="#FFF" />
+          <MdChevronLeft size={36} color="#fff" />
         </button>
         <strong>{dateFormatted}</strong>
         <button type="button" onClick={handleNextDay}>
-          <MdChevronRight size={36} color="#FFF" />
+          <MdChevronRight size={36} color="#fff" />
         </button>
       </header>
 
       <ul>
         {schedule.map(time => (
-          <Time key={time.time} past={time.past} available={!time.appointment}>
+          <Time key={time.time} past={time.past} avaliable={!time.appointment}>
             <strong>{time.time}</strong>
             <span>
               {time.appointment ? time.appointment.user.name : "Em aberto"}
