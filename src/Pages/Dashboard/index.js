@@ -34,6 +34,7 @@ export default function Dashboard() {
       const response = await api.get("schedule", {
         params: { date }
       });
+
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
       const data = range.map(hour => {
@@ -48,7 +49,6 @@ export default function Dashboard() {
           )
         };
       });
-
       setSchedule(data);
     }
 
